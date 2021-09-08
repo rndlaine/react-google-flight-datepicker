@@ -6,6 +6,7 @@ import BackIcon from '../../assets/svg/back.svg';
 import DateInputGroup from './DateInputGroup';
 import DialogContentMobile from './DialogContentMobile';
 import DialogContentDesktop from './DialogContentDesktop';
+import LocalizedDatePickerContext from './LocalizedDatePickerContext';
 
 const Dialog = ({
   toggleDialog,
@@ -34,6 +35,8 @@ const Dialog = ({
   hideDialogFooter,
   dateInputSeperator,
   singleCalendar,
+  doneButtonLabels,
+  resetButtonLabels,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [dateChanged, setDateChanged] = useState();
@@ -56,21 +59,22 @@ const Dialog = ({
             startDateInput.focus();
           }
         }
-
       }, 50);
     }
   }, [complsOpen]);
 
   return (
-    <div
-      className={cx('dialog-date-picker', {
-        open: complsOpen,
-        hide: !complsOpen && hideAnimation,
-        single: singleCalendar && !isMobile
-      })}
-      ref={containerRef}
-    >
-      {!hideDialogHeader
+    <LocalizedDatePickerContext.Consumer>
+      {value => (
+        <div
+          className={cx('dialog-date-picker', {
+            open: complsOpen,
+            hide: !complsOpen && hideAnimation,
+            single: singleCalendar && !isMobile,
+          })}
+          ref={containerRef}
+        >
+          {!hideDialogHeader
         && (
         <div className="dialog-header">
           <button
@@ -100,67 +104,69 @@ const Dialog = ({
             className="btn-outline reset-button"
             onClick={handleReset}
           >
-            Reset
+            {resetButtonLabels[value]}
           </button>
         </div>
         )}
 
-      <div className="dialog-content">
-        {isMobile
-          ? (
-            <DialogContentMobile
-              fromDate={fromDate}
-              toDate={toDate}
-              hoverDate={hoverDate}
-              onSelectDate={onSelectDate}
-              startWeekDay={startWeekDay}
-              minDate={minDate}
-              maxDate={maxDate}
-              dateFormat={dateFormat}
-              weekDayFormat={weekDayFormat}
-              monthFormat={monthFormat}
-              complsOpen={complsOpen}
-              isSingle={isSingle}
-              highlightToday={highlightToday}
-            />
-          )
-          : (
-            <DialogContentDesktop
-              fromDate={fromDate}
-              toDate={toDate}
-              hoverDate={hoverDate}
-              onSelectDate={onSelectDate}
-              onHoverDate={onHoverDate}
-              startWeekDay={startWeekDay}
-              minDate={minDate}
-              maxDate={maxDate}
-              dateFormat={dateFormat}
-              weekDayFormat={weekDayFormat}
-              monthFormat={monthFormat}
-              isSingle={isSingle}
-              complsOpen={complsOpen}
-              dateChanged={dateChanged}
-              highlightToday={highlightToday}
-              singleCalendar={singleCalendar}
-            />
-          )}
-      </div>
-      {!hideDialogFooter
+          <div className="dialog-content">
+            {isMobile
+              ? (
+                <DialogContentMobile
+                  fromDate={fromDate}
+                  toDate={toDate}
+                  hoverDate={hoverDate}
+                  onSelectDate={onSelectDate}
+                  startWeekDay={startWeekDay}
+                  minDate={minDate}
+                  maxDate={maxDate}
+                  dateFormat={dateFormat}
+                  weekDayFormat={weekDayFormat}
+                  monthFormat={monthFormat}
+                  complsOpen={complsOpen}
+                  isSingle={isSingle}
+                  highlightToday={highlightToday}
+                />
+              )
+              : (
+                <DialogContentDesktop
+                  fromDate={fromDate}
+                  toDate={toDate}
+                  hoverDate={hoverDate}
+                  onSelectDate={onSelectDate}
+                  onHoverDate={onHoverDate}
+                  startWeekDay={startWeekDay}
+                  minDate={minDate}
+                  maxDate={maxDate}
+                  dateFormat={dateFormat}
+                  weekDayFormat={weekDayFormat}
+                  monthFormat={monthFormat}
+                  isSingle={isSingle}
+                  complsOpen={complsOpen}
+                  dateChanged={dateChanged}
+                  highlightToday={highlightToday}
+                  singleCalendar={singleCalendar}
+                />
+              )}
+          </div>
+          {!hideDialogFooter
         && (
         <div className="dialog-footer">
           <button type="button" className="submit-button" onClick={toggleDialog} tabIndex="0">
-            Done
+            {doneButtonLabels[value]}
           </button>
           <button
             type="button"
             className="btn-outline reset-button mobile"
             onClick={handleReset}
           >
-            Reset
+            {resetButtonLabels[value]}
           </button>
         </div>
         )}
-    </div>
+        </div>
+      )}
+    </LocalizedDatePickerContext.Consumer>
   );
 };
 
@@ -191,6 +197,8 @@ Dialog.propTypes = {
   hideDialogFooter: PropTypes.bool,
   dateInputSeperator: PropTypes.node,
   singleCalendar: PropTypes.bool,
+  doneButtonLabels: PropTypes.object,
+  resetButtonLabels: PropTypes.object,
 };
 
 Dialog.defaultProps = {
@@ -219,6 +227,8 @@ Dialog.defaultProps = {
   hideDialogHeader: false,
   hideDialogFooter: false,
   dateInputSeperator: null,
+  doneButtonLabels: { en: 'Done', fr: 'OK' },
+  resetButtonLabels: { en: 'Reset', fr: 'Effacer' },
 };
 
 export default Dialog;

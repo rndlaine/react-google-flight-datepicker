@@ -9,6 +9,7 @@ import './styles.scss';
 import DateInputGroup from './DateInputGroup';
 import DialogWrapper from './DialogWrapper';
 import Dialog from './Dialog';
+import LocalizedDatePicker from './LocalizedDatePicker';
 
 const RangeDatePicker = ({
   startDate,
@@ -210,61 +211,63 @@ const RangeDatePicker = ({
   }
 
   return (
-    <div className="react-google-flight-datepicker">
-      <div
-        className={cx('date-picker', className, {
-          disabled,
-        })}
-        ref={containerRef}
-      >
-        <DateInputGroup
-          handleClickDateInput={handleClickDateInput}
-          showCalendarIcon
-          fromDate={fromDate}
-          toDate={toDate}
-          minDate={minDate}
-          maxDate={maxDate}
-          handleChangeDate={handleChangeDate}
-          startDatePlaceholder={startDatePlaceholder}
-          endDatePlaceholder={endDatePlaceholder}
-          dateFormat={dateFormat}
-          onFocus={onDateInputFocus}
-          nonFocusable={complsOpen}
-          dateInputSeperator={dateInputSeperator}
-          inputFocus={inputFocus}
-        />
-
-        <DialogWrapper isMobile={isMobile}>
-          <Dialog
-            complsOpen={complsOpen}
-            toggleDialog={toggleDialog}
+    <LocalizedDatePicker>
+      <div className="react-google-flight-datepicker">
+        <div
+          className={cx('date-picker', className, {
+            disabled,
+          })}
+          ref={containerRef}
+        >
+          <DateInputGroup
             handleClickDateInput={handleClickDateInput}
-            inputFocus={inputFocus}
-            setInputFocus={setInputFocus}
-            onSelectDate={onSelectDate}
-            onHoverDate={onHoverDate}
+            showCalendarIcon
             fromDate={fromDate}
             toDate={toDate}
-            hoverDate={hoverDate}
-            handleReset={handleReset}
+            minDate={minDate}
+            maxDate={maxDate}
             handleChangeDate={handleChangeDate}
             startDatePlaceholder={startDatePlaceholder}
             endDatePlaceholder={endDatePlaceholder}
-            startWeekDay={startWeekDay}
-            minDate={minDate}
-            maxDate={maxDate}
-            weekDayFormat={weekDayFormat}
             dateFormat={dateFormat}
-            monthFormat={monthFormat}
-            isMobile={isMobile}
-            highlightToday={highlightToday}
-            hideDialogHeader={hideDialogHeader}
-            hideDialogFooter={hideDialogFooter}
+            onFocus={onDateInputFocus}
+            nonFocusable={complsOpen}
             dateInputSeperator={dateInputSeperator}
+            inputFocus={inputFocus}
           />
-        </DialogWrapper>
+
+          <DialogWrapper isMobile={isMobile}>
+            <Dialog
+              complsOpen={complsOpen}
+              toggleDialog={toggleDialog}
+              handleClickDateInput={handleClickDateInput}
+              inputFocus={inputFocus}
+              setInputFocus={setInputFocus}
+              onSelectDate={onSelectDate}
+              onHoverDate={onHoverDate}
+              fromDate={fromDate}
+              toDate={toDate}
+              hoverDate={hoverDate}
+              handleReset={handleReset}
+              handleChangeDate={handleChangeDate}
+              startDatePlaceholder={startDatePlaceholder}
+              endDatePlaceholder={endDatePlaceholder}
+              startWeekDay={startWeekDay}
+              minDate={minDate}
+              maxDate={maxDate}
+              weekDayFormat={weekDayFormat}
+              dateFormat={dateFormat}
+              monthFormat={monthFormat}
+              isMobile={isMobile}
+              highlightToday={highlightToday}
+              hideDialogHeader={hideDialogHeader}
+              hideDialogFooter={hideDialogFooter}
+              dateInputSeperator={dateInputSeperator}
+            />
+          </DialogWrapper>
+        </div>
       </div>
-    </div>
+    </LocalizedDatePicker>
   );
 };
 

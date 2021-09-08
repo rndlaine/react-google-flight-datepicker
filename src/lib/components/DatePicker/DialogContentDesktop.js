@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
@@ -6,6 +7,7 @@ import dayjs from 'dayjs';
 import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
 import MonthCalendar from './MonthCalendar';
+import LocalizedDatePicker from './LocalizedDatePicker';
 
 const DialogContentDesktop = ({
   fromDate,
@@ -38,15 +40,15 @@ const DialogContentDesktop = ({
     const futureMonth = dayjs(date).add(2, 'month');
 
     if (singleCalendar) {
-        return [prevMonth, focusDate, nextMonth];
-    } else {
-        return [prevMonth, focusDate, nextMonth, futureMonth];
+      return [prevMonth, focusDate, nextMonth];
     }
+
+    return [prevMonth, focusDate, nextMonth, futureMonth];
   }
 
   useEffect(() => {
     if (containerRef.current) {
-      const style = window.getComputedStyle(containerRef.current)
+      const style = window.getComputedStyle(containerRef.current);
       const _translateAmount = singleCalendar ? containerRef.current.offsetWidth + parseInt(style.marginLeft) - 8 : containerRef.current.offsetWidth / 2;
       setWrapperWidth(_translateAmount);
     }
@@ -269,43 +271,48 @@ const DialogContentDesktop = ({
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div className={cx('calendar-wrapper', {
-        single: singleCalendar,
-    })} ref={containerRef} onKeyDown={onKeyDown}>
+    <LocalizedDatePicker>
       <div
-        className={cx('calendar-content', {
-          isAnimating: translateAmount !== 0,
+        className={cx('calendar-wrapper', {
           single: singleCalendar,
         })}
-        style={{
-          transform: `translateX(${translateAmount}px)`,
-        }}
+        ref={containerRef}
+        onKeyDown={onKeyDown}
       >
-        {renderMonthCalendars()}
-      </div>
-      <div className="calendar-flippers">
         <div
-          className={cx('flipper-button', { disabled: disablePrev })}
-          onClick={decreaseCurrentMonth}
-          onKeyDown={onBackButtonKeyDown}
-          role="button"
-          tabIndex="0"
+          className={cx('calendar-content', {
+            isAnimating: translateAmount !== 0,
+            single: singleCalendar,
+          })}
+          style={{
+            transform: `translateX(${translateAmount}px)`,
+          }}
         >
-          <PrevIcon viewBox="0 0 24 24" />
+          {renderMonthCalendars()}
         </div>
-        <div
-          className={cx('flipper-button', { disabled: disableNext })}
-          onClick={increaseCurrentMonth}
-          onKeyDown={onNextButtonKeyDown}
-          role="button"
-          tabIndex="0"
-          onBlur={focusOnCalendar}
-        >
-          <NextIcon viewBox="0 0 24 24" />
+        <div className="calendar-flippers">
+          <div
+            className={cx('flipper-button', { disabled: disablePrev })}
+            onClick={decreaseCurrentMonth}
+            onKeyDown={onBackButtonKeyDown}
+            role="button"
+            tabIndex="0"
+          >
+            <PrevIcon viewBox="0 0 24 24" />
+          </div>
+          <div
+            className={cx('flipper-button', { disabled: disableNext })}
+            onClick={increaseCurrentMonth}
+            onKeyDown={onNextButtonKeyDown}
+            role="button"
+            tabIndex="0"
+            onBlur={focusOnCalendar}
+          >
+            <NextIcon viewBox="0 0 24 24" />
+          </div>
         </div>
       </div>
-    </div>
+    </LocalizedDatePicker>
   );
 };
 
@@ -323,7 +330,7 @@ DialogContentDesktop.propTypes = {
   complsOpen: PropTypes.bool,
   dateChanged: PropTypes.instanceOf(Date),
   highlightToday: PropTypes.bool,
-  singleCalendar: PropTypes.bool
+  singleCalendar: PropTypes.bool,
 };
 
 DialogContentDesktop.defaultProps = {

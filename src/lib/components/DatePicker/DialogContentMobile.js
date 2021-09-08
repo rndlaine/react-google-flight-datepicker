@@ -6,6 +6,7 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 
 import MonthCalendar from './MonthCalendar';
 import { getMonthInfo, getWeekDay } from '../../helpers';
+import LocalizedDatePicker from './LocalizedDatePicker';
 
 const DialogContentMobile = ({
   fromDate,
@@ -19,7 +20,7 @@ const DialogContentMobile = ({
   weekDayFormat,
   complsOpen,
   isSingle,
-  highlightToday
+  highlightToday,
 }) => {
   const [rowCount, setRowCount] = useState(2400);
   const minYear = minDate ? dayjs(minDate).year() : 1900;
@@ -112,15 +113,16 @@ const DialogContentMobile = ({
   }
 
   return (
-    <div className="calendar-wrapper">
-      <div className="calendar-content">
-        <div className="weekdays mobile">
-          {generateWeekDay()}
+    <LocalizedDatePicker>
+      <div className="calendar-wrapper">
+        <div className="calendar-content">
+          <div className="weekdays mobile">
+            {generateWeekDay()}
+          </div>
+          {renderMonthCalendars()}
         </div>
-        {renderMonthCalendars()}
       </div>
-    </div>
-
+    </LocalizedDatePicker>
   );
 };
 

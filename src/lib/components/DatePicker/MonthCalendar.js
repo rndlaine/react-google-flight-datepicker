@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 
 import Week from './Week';
 import { getMonthInfo, getWeekDay } from '../../helpers';
+import LocalizedDatePicker from './LocalizedDatePicker';
 
 const MonthCalendar = ({
   hidden,
@@ -53,6 +54,7 @@ const MonthCalendar = ({
 
   function generateWeekDay() {
     const arrWeekDay = getWeekDay(startWeekDay, weekDayFormat);
+
     return arrWeekDay.map((day, index) => (
       <div className="weekday" key={index}>
         {day}
@@ -61,25 +63,27 @@ const MonthCalendar = ({
   }
 
   return (
-    <div
-      className={cx('month-calendar', {
-        isAnimating,
-        hidden,
-          single: singleCalendar
-      })}
-      data-month-index={month + 1}
-    >
-      <div className="month-name">
-        {monthFormat
-          ? dayjs(`${year}-${month + 1}-1`).format(monthFormat)
-          : dayjs(`${year}-${month + 1}-1`).format('MMMM - YYYY')}
-      </div>
-      <div className="weekdays">{generateWeekDay()}</div>
-      <div className="week-container">
-        {generateWeek()}
-      </div>
+    <LocalizedDatePicker>
+      <div
+        className={cx('month-calendar', {
+          isAnimating,
+          hidden,
+          single: singleCalendar,
+        })}
+        data-month-index={month + 1}
+      >
+        <div className="month-name">
+          {monthFormat
+            ? dayjs(`${year}-${month + 1}-1`).format(monthFormat)
+            : dayjs(`${year}-${month + 1}-1`).format('MMMM - YYYY')}
+        </div>
+        <div className="weekdays">{generateWeekDay()}</div>
+        <div className="week-container">
+          {generateWeek()}
+        </div>
 
-    </div>
+      </div>
+    </LocalizedDatePicker>
   );
 };
 

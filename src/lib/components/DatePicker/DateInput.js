@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import CalendarIcon from '../../assets/svg/calendar.svg';
 import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
+import LocalizedDatePicker from './LocalizedDatePicker';
 
 const DateInput = ({
   handleClickDateInput,
@@ -69,22 +70,23 @@ const DateInput = ({
   }
 
   return (
-    <div
-      className={cx('date', { 'is-focus': isFocus, 'is-single': isSingle })}
-      role="button"
-      tabIndex={nonFocusable ? '-1' : tabIndex}
-      onClick={handleClickDateInput}
-      onFocus={onDateInputFocus}
-      id={name === "START_DATE" ? "start-date-input-button" : "end-date-input-button"}
-    >
-      {showIcon && (
+    <LocalizedDatePicker>
+      <div
+        className={cx('date', { 'is-focus': isFocus, 'is-single': isSingle })}
+        role="button"
+        tabIndex={nonFocusable ? '-1' : tabIndex}
+        onClick={handleClickDateInput}
+        onFocus={onDateInputFocus}
+        id={name === 'START_DATE' ? 'start-date-input-button' : 'end-date-input-button'}
+      >
+        {showIcon && (
         <CalendarIcon className="icon-calendar" viewBox="0 0 24 24" />
-      )}
+        )}
 
-      <div className="selected-date">
-        {formattedDate || <div className="date-placeholder">{placeholder}</div>}
-      </div>
-      {formattedDate && (
+        <div className="selected-date">
+          {formattedDate || <div className="date-placeholder">{placeholder}</div>}
+        </div>
+        {formattedDate && (
         <div className="change-date-group">
           <button
             type="button"
@@ -105,8 +107,9 @@ const DateInput = ({
             <NextIcon viewBox="0 0 24 24" className="icon-arrow" />
           </button>
         </div>
-      )}
-    </div>
+        )}
+      </div>
+    </LocalizedDatePicker>
   );
 };
 

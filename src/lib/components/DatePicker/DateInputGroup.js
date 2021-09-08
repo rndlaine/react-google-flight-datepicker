@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 
 import DateInput from './DateInput';
 import CalendarIcon from '../../assets/svg/calendar.svg';
+import LocalizedDatePicker from './LocalizedDatePicker';
 
 const DateInputGroup = ({
   showCalendarIcon,
@@ -49,29 +50,30 @@ const DateInputGroup = ({
   }
 
   return (
-    <div className="date-picker-input">
-      {showCalendarIcon
+    <LocalizedDatePicker>
+      <div className="date-picker-input">
+        {showCalendarIcon
         && <CalendarIcon className="icon-calendar mobile" viewBox="0 0 24 24" />}
-      <div className="date-picker-date-group">
-        <DateInput
-          handleClickDateInput={handleClickFromInput}
-          showIcon
-          tabIndex={nonFocusable ? '-1' : '0'}
-          isFocus={inputFocus === 'from'}
-          value={fromDate}
-          placeholder={startDatePlaceholder}
-          handleChangeDate={handleChangeFromDate}
-          dateFormat={dateFormat}
-          isSingle={isSingle}
-          name="START_DATE"
-          onFocus={onFocus}
-          nonFocusable={nonFocusable}
-          minDate={minDate}
-          maxDate={maxDate}
-        />
-        {!isSingle && dateInputSeperator
+        <div className="date-picker-date-group">
+          <DateInput
+            handleClickDateInput={handleClickFromInput}
+            showIcon
+            tabIndex={nonFocusable ? '-1' : '0'}
+            isFocus={inputFocus === 'from'}
+            value={fromDate}
+            placeholder={startDatePlaceholder}
+            handleChangeDate={handleChangeFromDate}
+            dateFormat={dateFormat}
+            isSingle={isSingle}
+            name="START_DATE"
+            onFocus={onFocus}
+            nonFocusable={nonFocusable}
+            minDate={minDate}
+            maxDate={maxDate}
+          />
+          {!isSingle && dateInputSeperator
           && <div className="date-input-separator">{dateInputSeperator}</div>}
-        {!isSingle
+          {!isSingle
         && (
           <DateInput
             handleClickDateInput={handleClickToInput}
@@ -88,8 +90,9 @@ const DateInputGroup = ({
             fromDate={fromDate}
           />
         )}
+        </div>
       </div>
-    </div>
+    </LocalizedDatePicker>
   );
 };
 
