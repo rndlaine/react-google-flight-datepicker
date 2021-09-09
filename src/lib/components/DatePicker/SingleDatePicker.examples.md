@@ -3,7 +3,7 @@ DatePicker examples:
 ###### SingleDatePicker
 
 ```js
-import { SingleDatePicker } from 'react-google-flight-datepicker';
+import { SingleDatePicker } from '@rndlaine/react-google-flight-datepicker';
 
 <div className="react-google-flight-datepicker">
   <div className="date-picker-demo">

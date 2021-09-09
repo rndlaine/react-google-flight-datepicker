@@ -1,9 +1,9 @@
 import {
-  RangeDatePicker, SingleDatePicker, GlobalDatePickerLocale,
+  RangeDatePicker, SingleDatePicker, GlobalLocaleDatePicker,
 } from './components/DatePicker';
 
 export {
   RangeDatePicker,
   SingleDatePicker,
-  GlobalDatePickerLocale,
+  GlobalLocaleDatePicker,
 };

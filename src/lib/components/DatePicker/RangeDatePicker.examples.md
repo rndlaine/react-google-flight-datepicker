@@ -3,7 +3,7 @@ DatePicker examples:
 ###### RangeDatePicker
 
 ```js
-import { RangeDatePicker } from 'react-google-flight-datepicker';
+import { RangeDatePicker } from '@rndlaine/react-google-flight-datepicker';
 
 <div className="react-google-flight-datepicker">
   <div className="date-picker-demo">
